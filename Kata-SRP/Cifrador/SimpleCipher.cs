@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using System.IO;
 using System.Security.Cryptography;
 using System.Text;
 
@@ -28,9 +29,9 @@ namespace Kata.SRP.Cifrador
                 encriptedData[i] = byte.Parse(value.ToString());
             }
 
-            //Convertir bytes en string y devolver
-
+            //Convertir bytes en string y devolver         
             string output = this.GetString(encriptedData);
+            this.SaveToFile(output, this.ObtenerHash(output));
             return output;
         }
 
@@ -46,6 +47,31 @@ namespace Kata.SRP.Cifrador
             return output;
         }
 
+        private void SaveToFile(string encriptedData, string hash)
+        {
+            string path = @"encriptedText.txt";
+
+            try
+            {
+                if (!File.Exists(path))
+                {
+                    File.WriteAllText(path, encriptedData);
+                }
+                else
+                {
+                    File.AppendAllText(path, Environment.NewLine);
+                    File.AppendAllText(path, Environment.NewLine);
+                    File.AppendAllText(path, encriptedData);                
+                }
+
+                File.AppendAllText(path, Environment.NewLine);
+                File.AppendAllText(path, hash);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.ToString());
+            }
+        }
 
         public string ObtenerHash(string input)
         {
