@@ -17,8 +17,8 @@ namespace Kata.SRP.Cifrador
             byte[] data = this.GetBytes(input);
 
             //Convertir bytes de password en clave SHA1 
-            SHA256 hash = SHA256Managed.Create();
-            byte[] hashValue = hash.ComputeHash(pass);
+            SHA256 hashManager = SHA256Managed.Create();
+            byte[] hashValue = hashManager.ComputeHash(pass);
 
             //Aplicar cifrado con la clave
             byte[] encriptedData = new byte[data.Length];
@@ -30,20 +30,20 @@ namespace Kata.SRP.Cifrador
             }
 
             //Convertir bytes en string y devolver         
-            string output = this.GetString(encriptedData);
+            string output = this.GetBase64String(encriptedData);
             this.SaveToFile(output, this.ObtenerHash(output));
             return output;
         }
 
-        private byte[] GetBytes(string str)
+        private byte[] GetBytes(string input)
         {
-            byte[] bytesToBeEncrypted = Encoding.UTF8.GetBytes(str);
-            return bytesToBeEncrypted;
+            byte[] output = Encoding.UTF8.GetBytes(input);
+            return output;
         }
 
-        private string GetString(byte[] bytes)
+        private string GetBase64String(byte[] input)
         {
-            string output = Convert.ToBase64String(bytes);
+            string output = Convert.ToBase64String(input);
             return output;
         }
 
@@ -77,8 +77,8 @@ namespace Kata.SRP.Cifrador
         {
             StringBuilder sb = new StringBuilder();
             byte[] data = this.GetBytes(input);
-            SHA256 hash = SHA256Managed.Create();
-            byte[] hashValue = hash.ComputeHash(data);
+            SHA256 hashManager = SHA256Managed.Create();
+            byte[] hashValue = hashManager.ComputeHash(data);
 
             foreach (Byte b in hashValue)
                 sb.Append(b.ToString("x2"));
