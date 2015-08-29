@@ -39,8 +39,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Cifrador\ISimpleCipher.cs" />
-    <Compile Include="Cifrador\SimpleCipher.cs" />
+    <Compile Include="Cifrador\ISimpleCypher.cs" />
+    <Compile Include="Cifrador\SimpleCypher.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

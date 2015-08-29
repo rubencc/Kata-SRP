@@ -1,14 +1,13 @@
 ﻿using System;
-using System.Collections;
 using System.IO;
 using System.Security.Cryptography;
 using System.Text;
 
 namespace Kata.SRP.Cifrador
 {
-    public class SimpleCipher : ISimpleCipher
+    public class SimpleCypher : ISimpleCypher
     {
-        public string Cifrar(string input, string password)
+        public string Encode(string input, string password)
         {
             //Convertir password en bytes
             byte[] pass = this.GetBytes(password);
@@ -31,7 +30,7 @@ namespace Kata.SRP.Cifrador
 
             //Convertir bytes en string y devolver         
             string output = this.GetBase64String(encriptedData);
-            this.SaveToFile(output, this.ObtenerHash(output));
+            this.SaveToFile(output, this.GetHash(output));
             return output;
         }
 
@@ -44,6 +43,12 @@ namespace Kata.SRP.Cifrador
         private string GetBase64String(byte[] input)
         {
             string output = Convert.ToBase64String(input);
+            return output;
+        }
+
+        private byte[] GetBytesFromBase64String(string input)
+        {
+            byte[] output = Convert.FromBase64String(input);
             return output;
         }
 
@@ -73,7 +78,7 @@ namespace Kata.SRP.Cifrador
             }
         }
 
-        public string ObtenerHash(string input)
+        public string GetHash(string input)
         {
             StringBuilder sb = new StringBuilder();
             byte[] data = this.GetBytes(input);
@@ -84,6 +89,33 @@ namespace Kata.SRP.Cifrador
                 sb.Append(b.ToString("x2"));
 
             return sb.ToString();
+        }
+
+
+        public string Decode(string input, string password)
+        {
+            //Convertir password en bytes
+            byte[] pass = this.GetBytes(password);
+
+            //Convertir datos en bytes
+            byte[] data = this.GetBytesFromBase64String(input);
+
+            //Convertir bytes de password en clave SHA1 
+            SHA256 hashManager = SHA256Managed.Create();
+            byte[] hashValue = hashManager.ComputeHash(pass);
+
+            //Aplicar descifrado con la clave
+            byte[] decriptedData = new byte[data.Length];
+
+            for (int i = 0; i < data.Length; i++)
+            {
+                int value = data[i] ^ hashValue[i % 32];
+                decriptedData[i] = byte.Parse(value.ToString());
+            }
+
+            //Convertir bytes en string y devolver         
+            string output = Encoding.UTF8.GetString(decriptedData);
+            return output;
         }
     }
 }
