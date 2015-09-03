@@ -50,6 +50,8 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="HashManagerTest.cs" />
+    <Compile Include="SimpleCypherAndHashManagerIntegrationTest.cs" />
     <Compile Include="SimpleCypherTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
