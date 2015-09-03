@@ -41,6 +41,12 @@
   <ItemGroup>
     <Compile Include="Cifrador\ISimpleCypher.cs" />
     <Compile Include="Cifrador\SimpleCypher.cs" />
+    <Compile Include="Common\IStringBase64.cs" />
+    <Compile Include="Common\IStringByte.cs" />
+    <Compile Include="Common\StringBase64.cs" />
+    <Compile Include="Common\StringByte.cs" />
+    <Compile Include="Hash\HashManager.cs" />
+    <Compile Include="Hash\IHashManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

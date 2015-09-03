@@ -52,6 +52,7 @@
   <ItemGroup>
     <Compile Include="SimpleCypherTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="HashManagerTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Kata-SRP\Kata-SRP.csproj">
