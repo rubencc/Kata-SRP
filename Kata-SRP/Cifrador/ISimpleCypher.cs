@@ -4,5 +4,6 @@
     {
         string Encode(string input, string password);
         string Decode(string input, string password);
+        string GetHash(string input);
     }
 }

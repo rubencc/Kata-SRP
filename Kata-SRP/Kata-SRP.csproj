@@ -41,10 +41,6 @@
   <ItemGroup>
     <Compile Include="Cifrador\ISimpleCypher.cs" />
     <Compile Include="Cifrador\SimpleCypher.cs" />
-    <Compile Include="Common\IStringConverter.cs" />
-    <Compile Include="Common\StringConverter.cs" />
-    <Compile Include="Hash\Sah256HashManager.cs" />
-    <Compile Include="Hash\IHashManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
